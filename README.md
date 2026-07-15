@@ -10,9 +10,9 @@ usados no licenciamento de importação do Portal Único Siscomex.
 ## Como rodar
 
 **API** (porta 8000):
-cd backend
-python -m venv .venv
-.venv\Scripts\activate
+cd backend 
+python -m venv .venv 
+.venv\Scripts\activate 
 pip install fastapi "uvicorn[standard]"
 uvicorn main:app --reload
 
