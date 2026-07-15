@@ -10,16 +10,16 @@ usados no licenciamento de importação do Portal Único Siscomex.
 ## Como rodar
 
 **API** (porta 8000):
-cd backend 
-python -m venv .venv 
-.venv\Scripts\activate 
-pip install fastapi "uvicorn[standard]"
-uvicorn main:app --reload
+- cd backend 
+- python -m venv .venv 
+- .venv\Scripts\activate 
+- pip install fastapi "uvicorn[standard]"
+- uvicorn main:app --reload
 
 **Front** (porta 5173):
-cd frontend
-npm install
-npm run dev
+- cd frontend
+- npm install
+- npm run dev
 
 ## Decisões técnicas
 - **TanStack Query** em vez de `useState` + `useEffect`: dado remoto é cache com ciclo de
