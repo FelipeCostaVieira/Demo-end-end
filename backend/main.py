@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Demo Comex API")
@@ -30,4 +31,4 @@ def obter_modelo(modelo_id: int):
     for modelo in MODELOS_LPCO:
         if modelo["id"] == modelo_id:
             return modelo
-    return {"erro": "Modelo não encontrado"}
+    raise HTTPException(status_code=404, detail="Modelo não encontrado")
