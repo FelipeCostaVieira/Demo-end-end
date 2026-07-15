@@ -3,7 +3,6 @@ from main import app
 
 client = TestClient(app)
 
-
 def test_listar_modelos_retorna_200():
     resposta = client.get("/modelos")
     assert resposta.status_code == 200
