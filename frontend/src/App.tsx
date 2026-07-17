@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
+
 type Modelo = {
   id: number
   codigo: string
@@ -32,7 +33,7 @@ export default function App() {
       </div>
     )
 
-  return (
+  return (        
     <div style={{ padding: 24, fontFamily: 'system-ui' }}>
       <h1>Modelos LPCO</h1>
       <button onClick={() => refetch()} disabled={isFetching}>

@@ -28,4 +28,4 @@ def test_obter_modelo_existente():
 
 def test_obter_modelo_inexistente():
     resposta = client.get("/modelos/999")
-    assert "erro" in resposta.json()
+    assert resposta.status_code == 404
