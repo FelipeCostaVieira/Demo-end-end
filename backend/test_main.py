@@ -1,17 +1,32 @@
-from aplication.casos_uso import ObterModelo, ModeloNaoEncontrado
-from domain.modelo import ModeloLpco
-import pytest
+from fastapi.testclient import TestClient
+from main import app
+
+client = TestClient(app)
 
 
-class RepositorioFake:
-    def listar(self):
-        return [ModeloLpco(1, "LPCO-0001", "MAPA", "Teste", 10)]
-
-    def obter_por_id(self, modelo_id):
-        return self.listar()[0] if modelo_id == 1 else None
+def test_listar_modelos_retorna_200():
+    resposta = client.get("/modelos")
+    assert resposta.status_code == 200
 
 
-def test_obter_modelo_inexistente_levanta_excecao():
-    caso_uso = ObterModelo(RepositorioFake())
-    with pytest.raises(ModeloNaoEncontrado):
-        caso_uso.executar(999)
+def test_listar_modelos_retorna_lista_nao_vazia():
+    dados = client.get("/modelos").json()
+    assert isinstance(dados, list)
+    assert len(dados) > 0
+
+
+def test_modelo_tem_campos_obrigatorios():
+    modelo = client.get("/modelos").json()[0]
+    for campo in ("id", "codigo", "orgao", "descricao", "campos"):
+        assert campo in modelo
+
+
+def test_obter_modelo_existente():
+    resposta = client.get("/modelos/1")
+    assert resposta.status_code == 200
+    assert resposta.json()["codigo"] == "LPCO-0001"
+
+
+def test_obter_modelo_inexistente():
+    resposta = client.get("/modelos/999")
+    assert resposta.status_code == 404
